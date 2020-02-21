@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+/* after assets are placed in their logical locations, manifiest files is used to tell Rails, via the Sprockets gem, how to combine them to form single files.
+  this applies to CSS and JavaScript but not to images
+*/

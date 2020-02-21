@@ -1,0 +1,10 @@
+<!--cut the header section from /application.html.erb -->
+<!--replaced it with <%#= render 'layouts/rails_default' %> --> 
+
+<%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= render 'layouts/shim' %> <!-- refers to the partial -->
+
+    <%= stylesheet_link_tag 'application', media: 'all',
+                                            'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>

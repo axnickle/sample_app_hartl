@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= (yield(:title)) %></title>
+    <title><%= full_title(yield(:title)) %></title> <!-- method defined in application_helper.rb -->
     <meta charset="utf-8">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all',
-                                            'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-  <body>
+    
+    <%#= previously had default header material but replaced it with line 8; header material is now in the _rails_default.html.erb file %>
+    <%= render 'layouts/rails_default' %>
+    
+    <%= render 'layouts/header' %> <!-- refers to the header partial file -->
    <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
         <%= link_to "sample app", '#', id: "logo" %>
@@ -28,6 +25,7 @@
                     page such as pge/static_pages/home converts the contents of
                     home.html.erb to HTML and then inserts in place of
                     the **yield** -->
+    <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>

@@ -9,8 +9,8 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", help_path #using? handles escape uatomatically 
     assert_select "a[href=?]", about_path
     assert_select "a[href=?]", contact_path
-    get contact_path
-    assert_select "title", full_title("Contact")  #line 12 & 13 using full_title helper in a test
+    get signup_path
+    assert_select "title", full_title("Sign up")  #line 12 & 13 using full_title helper in a test
   end                                    
 end
 

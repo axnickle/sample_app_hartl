@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
     end    
     
     test "name should be present" do
-      @user.name = "    "     #we want someone to be able to register on the site
+      @user.name = ""     #we want someone to be able to register on the site
       assert_not @user.valid?
     end
     
@@ -48,7 +48,15 @@ class UserTest < ActiveSupport::TestCase
         assert_not @user.valid?, "#{invalid_address.inspect} should be invalid"
       end
     end
+    
+   test "email addresses should be unique" do
+    duplicate_user = @user.dup
+    @user.save
+    assert_not duplicate_user.valid?
+  end
 end
+
 
 #if we just one to run 1 test, the model test - bundle exec rake test:models
   #or we can just run rails test:models
+#user.dup makes a copy of the values; not the same user

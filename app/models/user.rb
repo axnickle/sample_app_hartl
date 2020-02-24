@@ -10,6 +10,7 @@ class User < ApplicationRecord
                     format:     { with: VALID_EMAIL_REGEX }, #VALID_EMAIL_REGEX is a constant, indicated in ruby
                                                                 #by a name starting with a capital letter
                     uniqueness: true
+    has_secure_password
 end
 
 #presence: true argument is one-lement options hase; 

@@ -26,6 +26,7 @@
                     home.html.erb to HTML and then inserts in place of
                     the **yield** -->
     <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %> <!-- only display info in development -->
     </div>
   </body>
 </html>

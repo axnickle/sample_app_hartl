@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get  '/help',      to: 'static_pages#help' #may also name routed other than defaut using the 'as:' option
   get  '/about',     to: 'static_pages#about'
   get  '/contact',   to: 'static_pages#contact'
-  get  '/signup',    to: 'users#new'  
+  get  '/signup',    to: 'users#new'
+  resources :users #this one line provides app with ALL the actions needed for a RESTful Users resources, along with a large number of named routes for generating user URLs
+                   #resuitling correspondence of URLs, actions and name routes
 end
 
 #GET request for the URL/help to the help action in the static_page_controller. This creates 2 name route: help_path and help_url

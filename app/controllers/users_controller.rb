@@ -12,20 +12,20 @@ class UsersController < ApplicationController
     def create
       #@user = User.new(params[:user]) #not the final implementation; :user - set of information required to create new user, not always unique
       @user = User.new(user_params)
-  if @user.save
+    if @user.save
       # Handle a successful save
       # flash[:success] = "Welcome to the Sample App!"
       # redirect_to @user
     else
       render 'new'
-    end
-  end
+   end
+end
 
 private
 
-  def user_params
-    params.require(:user).permit(:name, :email, :password,
-                                  :password_confirmation)
+  def user_params 
+    params.require(:user).permit(:name, :email, :password,     
+                                  :password_confirmation). #strong
 end
 end
 # debugger #issues commands to figure out the state of the application

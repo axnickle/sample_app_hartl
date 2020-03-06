@@ -11,5 +11,5 @@ end
 
 #Digest::MD5::hexdigest(user.email) - assessing user.email, it's calling the MD5 Hexdigesting Method then interpolating the id -into the url,then putting image on the page
 # def gravatar_for(user, options = { size: 80 }) - using keyword arguments in the gravatar_for helper
-    #size         = options[:size]
+#     size         = options[:size]
 # the above 2 lines is the same as line 4

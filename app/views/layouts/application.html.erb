@@ -2,24 +2,22 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title> <!-- method defined in application_helper.rb -->
-    <meta charset="utf-8">
+   
+     <%= csrf_meta_tags %>
+     <%= csp_meta_tag %>
     
-    <%#= previously had default header material but replaced it with line 8; header material is now in the _rails_default.html.erb file %>
-    <%= render 'layouts/rails_default' %>
-    
-    <%= render 'layouts/header' %> <!-- refers to the header partial file -->
-   <header class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
-        <%= link_to "sample app", '#', id: "logo" %>
-        <nav>
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   '#' %></li>
-            <li><%= link_to "Help",   '#' %></li>
-            <li><%= link_to "Log in", '#' %></li>
-          </ul>
-        </nav>
-      </div>
+    <%= stylesheet_link_tag 'application', media: 'all',
+                                           'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
     <div class="container">
+      <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+    <% end %>
+    <%#= previously had default header material but replaced it with line 8; header material is now in the _rails_default.html.erb file %>
     <%= yield %> <!-- responsible for inserting the contents of each page into
                     the layout.using this layout ensures that when visiting a 
                     page such as pge/static_pages/home converts the contents of

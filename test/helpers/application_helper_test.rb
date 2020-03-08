@@ -1,10 +1,15 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-#   test "full title helper" do
-#     assert_equal full_title,         FILL_IN
-#     assert_equal full_title("Help"), FILL_IN
-#   end
+  # test "full title helper" do
+  #   assert_equal full_title,         FILL_IN
+  #   assert_equal full_title("Help"), FILL_IN
+  # end
+
+  test "should get new" do
+    get login_path
+    assert_response :success
+  end
 end
 
 #It's convenient to use the full_title hleper in the tests by including the Application helper into

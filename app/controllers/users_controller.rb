@@ -13,6 +13,7 @@ class UsersController < ApplicationController
       #@user = User.new(params[:user]) #not the final implementation; :user - set of information required to create new user, not always unique
       @user = User.new(user_params)
       if @user.save
+        log_in @user #logging in the user upon sign up (rather than having to sign up then logging right away)
         #Handle a successful save
         flash[:success] = "Welcome to the Sample App!" # flash gives it a KEY, which is [:success]
         redirect_to @user                             #flash tell rails this data should only persist for 1 request

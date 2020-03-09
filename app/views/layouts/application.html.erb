@@ -2,9 +2,12 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title> <!-- method defined in application_helper.rb -->
-   
-     <%= csrf_meta_tags %>
-     <%= csp_meta_tag %>
+    <meta charset="utf-8">
+    <!-- line 8: added a special viewport meta tag, which lets developers swtich between
+    desktop and mobile modes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     
     <%= stylesheet_link_tag 'application', media: 'all',
                                            'data-turbolinks-track': 'reload' %>
@@ -14,17 +17,17 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-    <% end %>
+        <% flash.each do |message_type, message| %>
+          <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+        <% end %>
     <%#= previously had default header material but replaced it with line 8; header material is now in the _rails_default.html.erb file %>
-    <%= yield %> <!-- responsible for inserting the contents of each page into
+        <%= yield %> <!-- responsible for inserting the contents of each page into
                     the layout.using this layout ensures that when visiting a 
                     page such as pge/static_pages/home converts the contents of
                     home.html.erb to HTML and then inserts in place of
                     the **yield** -->
-    <%= render 'layouts/footer' %>
-    <%= debug(params) if Rails.env.development? %> <!-- only display info in development -->
+        <%= render 'layouts/footer' %>
+        <%= debug(params) if Rails.env.development? %> <!-- only display info in development -->
     </div>
   </body>
 </html>

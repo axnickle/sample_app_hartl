@@ -15,7 +15,7 @@ class User < ApplicationRecord
                                                                 #by a name starting with a capital letter
                     uniqueness: true
     has_secure_password
-    validates :password, presence: true, length: { minimum: 5 }
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
     
     # returns the hash digest of the given string
     def User.digest(string)

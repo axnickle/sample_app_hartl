@@ -1,10 +1,11 @@
 module UsersHelper
   
   #Returns the Gravatar for the given user.
-  def gravatar_for(user, size: 80)
-  gravatar_id  = Digest::MD5::hexdigest(user.email.downcase) #standarization that'll ensure there won't be a failure do to case sensitivity, not a necessity
+  def gravatar_for(user, options = { size: 80 })
+    size         = options[:size]
+    gravatar_id  = Digest::MD5::hexdigest(user.email.downcase) #standarization that'll ensure there won't be a failure do to case sensitivity, not a necessity
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"        #77fb241a0e1d7bfb216059d0965709c0"
-  image_tag(gravatar_url, alt: user.name, class: "gravatar") #this is not a Ruby class, it's a css class
+    image_tag(gravatar_url, alt: user.name, class: "gravatar") #this is not a Ruby class, it's a css class
   end
 end
 

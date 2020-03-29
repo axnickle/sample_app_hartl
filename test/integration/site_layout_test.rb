@@ -9,8 +9,13 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", help_path #using? handles escape uatomatically 
     assert_select "a[href=?]", about_path #rails inserts about_path in place of question mark, checking for an HTML tag of the form
     assert_select "a[href=?]", contact_path
-    get signup_path
-    assert_select "title", full_title("Sign up")  #line 12 & 13 using full_title helper in a test
+    user = users(:michael)
+    log_in_as(user)
+    get root_path
+    assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", users_path
+    assert_select "a[href=?]", user_path(user)
+    assert_select "a[href=?]", edit_user_path(user)
   end                                    
 end
 

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-   before_action :logged_in_user, only: [:index, :edit, :update]
+   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
    before_action :correct_user,   only: [:edit, :update]
+   before_action :admin_user,     only: :destroy #a before filter restricting the destroy action to admins
    #commenting out the before filter to test the security model
    #both 'edit' and 'update' actions allow users to modify records in the database,
     #so for security it's important to protect them both
@@ -10,7 +11,7 @@ class UsersController < ApplicationController
     #like CURL, but it's much more robust to build them into automated tests
     
     def index
-      @users = User.paginate(page: params[:page])
+        @users = User.paginate(page: params[:page])
     end
     
     def show
@@ -49,9 +50,16 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def destroy #adding a working 'destroy' admin
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to users_url
+  end
 
   private
-
+    #will only be used internally by the Users controller and need not be exposed to external users via the web
+      #we’ll make it private using Ruby’s private keyword
     def user_params 
       params.require(:user).permit(:name, :email, :password,     
                                     :password_confirmation) #strong parameter

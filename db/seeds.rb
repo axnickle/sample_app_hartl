@@ -8,10 +8,17 @@
 
 # seeding the database with sample users
 # Create a main sample user.
+
+User.create!(name:  "Anna N",
+             email: "anickle@covermymeds.com",
+             password:              "supercool",
+             password_confirmation: "supercool",
+             admin: true)
+
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
-             password:              "foobar",
-             password_confirmation: "foobar")
+             password:              "123456",
+             password_confirmation: "123456")
 
 # Generate a bunch of additional users.
 99.times do |n|
@@ -23,3 +30,9 @@ User.create!(name:  "Example User",
                password:              password,
                password_confirmation: password)
 end
+
+#in rails console --sandbox run the following commands
+    #user = User.first
+    #user.admin?
+    #user.toggle!(:admin)
+    #user.admin?

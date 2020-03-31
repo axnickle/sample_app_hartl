@@ -1,5 +1,5 @@
-  require 'test_helper'
-
+ require 'test_helper'
+# action-level tests for admin access control
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def setup
@@ -11,13 +11,13 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get signup_path
     assert_response :success
   end
-  
+
   test "should redirect index when not logged in" do
     get users_path
     assert_redirected_to login_url
   end
 
-  test "should redirect edit when not logged in" do #action redirect
+  test "should redirect edit when not logged in" do
     get edit_user_path(@user)
     assert_not flash.empty?
     assert_redirected_to login_url

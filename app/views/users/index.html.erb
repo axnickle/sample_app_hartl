@@ -4,7 +4,11 @@
 <%= will_paginate %>
 
 <ul class="users">
-  <%= render @users %>
+  <% @users.each do |user| %>
+      <%#= gravatar_for user, size: 50 %> <!-- Rails automaticallys calls for a partial called _user.html.erb -->
+      <%#= link_to user.name, user %>
+      <%= render user %>
+  <% end %>
 </ul>
 
 <%= will_paginate %>

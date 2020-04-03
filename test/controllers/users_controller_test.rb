@@ -1,5 +1,5 @@
- require 'test_helper'
-# action-level tests for admin access control
+require 'test_helper'
+
 class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def setup

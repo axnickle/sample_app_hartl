@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  get 'sessions/new'
+  get 'account_activations/', to: 'account_activations#index'
+  get 'sessions/new', to: 'sessions#new'
   root              'static_pages#home' #defines the root route; then you automatically has access to the named route, root path
                            #static_pages is the controller, home is the action
   

@@ -8,7 +8,7 @@ class ActiveSupport::TestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-  include ApplicationHelper  #refers to application_helper_test.rb
+  #include ApplicationHelper  #refers to application_helper_test.rb
   # Add more helper methods to be used by all tests here... 
   # returns try if a test user is logged in
   def is_logged_in?
@@ -21,7 +21,7 @@ class ActiveSupport::TestCase
   end
 end
 
-class UsersLoginTest < ActionDispatch::IntegrationTest
+class ActionDispatch::IntegrationTest
   
   # Log in s a particular user
    def log_in_as(user, password: 'password', remember_me: '1')

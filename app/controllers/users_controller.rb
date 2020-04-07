@@ -27,10 +27,9 @@ class UsersController < ApplicationController
       #@user = User.new(params[:user]) #not the final implementation; :user - set of information required to create new user, not always unique
       @user = User.new(user_params) #will find users based on params
       if @user.save
-        log_in @user #logging in the user upon sign up (rather than having to sign up then logging right away)
-        #Handle a successful save
-        flash[:success] = "Welcome to the Sample App!" # flash gives it a KEY, which is [:success]
-        redirect_to @user                             #flash tell rails this data should only persist for 1 request
+       @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+        redirect_to root_url
       else
         render 'new'
       end
@@ -42,8 +41,7 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params) #(user_params- strong params
-    # handles a successful update
+    if @user.update(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else

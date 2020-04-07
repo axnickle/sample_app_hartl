@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       #@user = User.new(params[:user]) #not the final implementation; :user - set of information required to create new user, not always unique
       @user = User.new(user_params) #will find users based on params
       if @user.save
-       @user.send_activation_email
+        UserMailer.account_activation(@user).deliver_now
         flash[:info] = "Please check your email to activate your account."
         redirect_to root_url
       else

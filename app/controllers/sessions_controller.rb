@@ -6,15 +6,18 @@ class SessionsController < ApplicationController
   def create #A template for using an instance variable in the create action.
     user = User.find_by(email: params[:session][:email].downcase) #test for the incorrect password (not testing email)
     if user && user.authenticate(params[:session][:password])
-          
-    # log the user in and redirect to the user's how page.
-      log_in user #ready to complete the session create action by logging the user in and
-      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user #redirecting to the user's profile page; same as user_url(user)
+         if user.activated?
+            log_in user
+            params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+            redirect_back_or user
+         else
+            message  = "Account not activated. "
+            message += "Check your email for the activation link."
+        flash[:warning] = message
+            redirect_to root_url
+         end
     else
-      flash.now[:danger] = 'Invalid email/password combination' # Not quite right
-      # flash.now dissappear as soon as there is an additional request
-      # create an error message.
+      flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
   end

@@ -38,16 +38,29 @@ class User < ApplicationRecord
                                                                     #we don't have user's pw or confirmation
     
     # Return true if the given token matches the digest 
-     def authenticated?(remember_token)
-        return false if remember_digest.nil?
-        BCrypt::Password.new(remember_digest).is_password?(remember_token) #remember_oken is a variable local to the method
+     def authenticated?(attribute, token)
+      digest = send("#{attribute}_digest")
+      return false if digest.nil?
+      BCrypt::Password.new(digest).is_password?(token) #remember_oken is a variable local to the method
      end                                                               #NOT the same as the attr_accessor :remember_token in user.rb
     
     # forgets a user
      def forget
        update_attribute(:remember_digest, nil)
      end
-    
+
+    # Activates an account.
+    def activate
+    # update_attribute(:activated,    true)
+    # update_attribute(:activated_at, Time.zone.now)
+      update_columns(activated: FILL_IN, activated_at: FILL_IN) #replaces lines 54 and 55. single call to update_columns, which hits the database only once
+    end
+
+    # Sends activation email.
+    def send_activation_email
+      UserMailer.account_activation(self).deliver_now
+    end
+
     private
 
     # Converts email to all lower-case.

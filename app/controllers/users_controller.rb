@@ -11,12 +11,13 @@ class UsersController < ApplicationController
     #like CURL, but it's much more robust to build them into automated tests
     
     def index
-      @users = User.where(activated: FILL_IN).paginate(page: params[:page])
+      #@users = User.where(activated: FILL_IN).paginate(page: params[:page])
+      @users = User.paginate(page: params[:page])
     end
     
     def show
       @user = User.find(params[:id]) #just trying to find the id
-      redirect_to root_url and return unless FILL_IN? #user the find method on the User model to retrieve the user from the data base
+      #redirect_to root_url and return unless FILL_IN? #user the find method on the User model to retrieve the user from the data base
     end
     
     def new
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
       #we’ll make it private using Ruby’s private keyword
     def user_params 
       params.require(:user).permit(:name, :email, :password,     
-                                    :password_confirmation) #strong parameter
+                                    :password_confirmation) 
     end
     
     # Before filters

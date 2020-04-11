@@ -1,13 +1,10 @@
 require 'test_helper'
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
   
   #A test for user logout (and an improved test for invalid login)
   def setup
-    @user = users(:michael)
+    @user = users(:anna)
   end
   
     test "login with valid email/invalid password" do

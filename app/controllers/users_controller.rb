@@ -11,12 +11,13 @@ class UsersController < ApplicationController
     #like CURL, but it's much more robust to build them into automated tests
     
     def index
-        @users = User.paginate(page: params[:page])
+      #@users = User.where(activated: FILL_IN).paginate(page: params[:page])
+      @users = User.paginate(page: params[:page])
     end
     
     def show
       @user = User.find(params[:id]) #just trying to find the id
-                                     #user the find method on the User model to retrieve the user from the data base
+      #redirect_to root_url and return unless FILL_IN? #user the find method on the User model to retrieve the user from the data base
     end
     
     def new
@@ -27,10 +28,9 @@ class UsersController < ApplicationController
       #@user = User.new(params[:user]) #not the final implementation; :user - set of information required to create new user, not always unique
       @user = User.new(user_params) #will find users based on params
       if @user.save
-        log_in @user #logging in the user upon sign up (rather than having to sign up then logging right away)
-        #Handle a successful save
-        flash[:success] = "Welcome to the Sample App!" # flash gives it a KEY, which is [:success]
-        redirect_to @user                             #flash tell rails this data should only persist for 1 request
+        @user.send_activation_email
+        flash[:info] = "Please check your email to activate your account."
+        redirect_to root_url
       else
         render 'new'
       end
@@ -42,8 +42,7 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params) #(user_params- strong params
-    # handles a successful update
+    if @user.update(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -62,7 +61,7 @@ class UsersController < ApplicationController
       #we’ll make it private using Ruby’s private keyword
     def user_params 
       params.require(:user).permit(:name, :email, :password,     
-                                    :password_confirmation) #strong parameter
+                                    :password_confirmation) 
     end
     
     # Before filters

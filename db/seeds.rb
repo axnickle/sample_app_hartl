@@ -7,14 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # seeding the database with sample users
-# Create a main sample user.
 
+# Create a main sample user.
 User.create!(name:  "Anna N",
              email: "anickle@covermymeds.com",
              password:              "supercool",
              password_confirmation: "supercool",
-             admin: true)
-
+             admin:     true,
+             activated: true,
+             activated_at: Time.zone.now)
+             
 User.create!(name:  "Example User",
              email: "example@railstutorial.org",
              password:              "123456",
@@ -28,7 +30,9 @@ User.create!(name:  "Example User",
   User.create!(name:  name,
                email: email,
                password:              password,
-               password_confirmation: password)
+               password_confirmation: password,
+               activated: true,
+               activated_at: Time.zone.now)
 end
 
 #in rails console --sandbox run the following commands

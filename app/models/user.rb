@@ -6,7 +6,7 @@ class User < ApplicationRecord
     #adding a remember methond  - lines 8, 33, 34
         #create a valid token and associated digest by first making a new remember token using User.new_token, then updating the remember digest with the result of applying User.digest
     
-    attr_accessor :remember_token, :activation_token #create an accessible attribute 
+    attr_accessor :remember_token, :activation_token, :reset_token
     before_save   :downcase_email
     before_create :create_activation_digest 
     validates :name,  presence: true, length: { maximum: 50 }
@@ -53,7 +53,7 @@ class User < ApplicationRecord
     def activate
     # update_attribute(:activated,    true)
     # update_attribute(:activated_at, Time.zone.now)
-      update_columns(activated: FILL_IN, activated_at: FILL_IN) #replaces lines 54 and 55. single call to update_columns, which hits the database only once
+      update_columns(activated: true, activated_at: Time.zone.now) #replaces lines 54 and 55. single call to update_columns, which hits the database only once
     end
 
     # Sends activation email.
@@ -61,6 +61,25 @@ class User < ApplicationRecord
       UserMailer.account_activation(self).deliver_now
     end
 
+     # Sets the password reset attributes.
+    def create_reset_digest
+      self.reset_token = User.new_token
+      # update_attribute(:reset_digest,  User.digest(reset_token))
+      # update_attribute(:reset_sent_at, Time.zone.now)
+      update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now) 
+    end
+  
+    # Sends password reset email.
+    def send_password_reset_email
+      UserMailer.password_reset(self).deliver_now
+    end
+    
+    # Returns true if a password reset has expired.
+    def password_reset_expired?
+      reset_sent_at < 2.hours.ago
+    end
+    
+    
     private
 
     # Converts email to all lower-case.
